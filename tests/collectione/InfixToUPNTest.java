@@ -15,13 +15,14 @@ public class InfixToUPNTest {
     public void testTransformerSimple() {
     	String stringShouldBe = "3 4 3 * +";
         Queue<String> upnQueueIs = InfixToUPN.process("3 + 4 * 3");
+        System.out.println(upnQueueIs);
         String upnStringIs = queueToString(upnQueueIs);
         assertEquals(stringShouldBe, upnStringIs);
     }
     
     @Test
     public void testTransformerWithParens() {
-    	String stringShouldBe = "3 4 3 + *";
+    	String stringShouldBe = "3 4 + 3 *";
         Queue<String> upnQueueIs = InfixToUPN.process("( 3 + 4 ) * 3");
         System.out.println(upnQueueIs);
         String upnStringIs = queueToString(upnQueueIs);

@@ -16,11 +16,11 @@ public class DoubleNode {
 		return this.content;
 	}
 	
-	public Object getPred() {
+	public DoubleNode getPred() {
 		return this.pred;
 	}
 	
-	public Object getSucc() {
+	public DoubleNode getSucc() {
 		return this.succ;
 	}
 	
@@ -37,5 +37,7 @@ public class DoubleNode {
 			node.setPred(this);
 		}
 	}
+	
+	
 	
 }
