@@ -39,7 +39,7 @@ public class DoubleLinkedList {
 		} else {
 			DoubleNode nodeToStore = new DoubleNode(content);
 			DoubleNode nodeAtIndex = nodeStore.get(index);
-			
+
 			nodeToStore.setSucc(nodeAtIndex);
 			nodeToStore.setPred(nodeAtIndex.getPred());
 			nodeToStore.getPred().setSucc(nodeToStore);
@@ -56,17 +56,38 @@ public class DoubleLinkedList {
 	}
 
 	public boolean remove(Object content) {
-		for (DoubleNode doubleNode : nodeStore) {
-			if (doubleNode.getContent() == content) {
-				DoubleNode pred = doubleNode.getPred();
-				DoubleNode succ = doubleNode.getSucc();
+		if (nodeStore.size() == 0) {
+			return false;
+		} else if (nodeStore.size() == 1) {
+			head = null;
+			tail = null;
+			nodeStore.clear();
+			return true;
+		} else {
+			for (DoubleNode doubleNode : nodeStore) {
+				if (doubleNode.getContent() == content) {
+					if (head == doubleNode) {
+						head = doubleNode.getSucc();
+						head.setPred(null);
+						
+						return nodeStore.remove(content);
+					}
+					if (tail == doubleNode) {
+						tail = doubleNode.getPred();
+						tail.setSucc(null);
+						
+						return nodeStore.remove(content);
+					}
+					DoubleNode pred = doubleNode.getPred();
+					DoubleNode succ = doubleNode.getSucc();
 
-				pred.setSucc(succ);
-				succ.setPred(pred);
+					pred.setSucc(succ);
+					succ.setPred(pred);
 
-				nodeStore.remove(doubleNode);
+					nodeStore.remove(doubleNode);
 
-				return true;
+					return true;
+				}
 			}
 		}
 		return false;
