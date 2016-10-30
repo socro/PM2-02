@@ -1,5 +1,7 @@
 package collectione;
 
+import java.util.Arrays;
+
 public class DoubleNode {
 	
 	private Object content;
@@ -26,18 +28,15 @@ public class DoubleNode {
 	
 	public void setPred(DoubleNode node) {
 		this.pred = node;
-		if(node != null) {
-			node.setSucc(this);
-		}
 	}
 	
 	public void setSucc(DoubleNode node) {
 		this.succ = node;
-		if(node != null) {
-			node.setPred(this);
-		}
 	}
 	
-	
+//	@Override
+//	public String toString() {
+//		return Arrays.toString(nodeStore.toArray());
+//	}
 	
 }

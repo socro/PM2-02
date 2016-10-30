@@ -28,6 +28,17 @@ public class InfixToUPNTest {
         String upnStringIs = queueToString(upnQueueIs);
         assertEquals(stringShouldBe, upnStringIs);
     }
+    
+    @Test
+    public void testTransformerWithParensComplicated() {
+    	String stringShouldBe = "5 3 4 + * 6 2 1 + / *";
+        Queue<String> upnQueueIs = InfixToUPN.process("5 * ( 3 + 4 ) * 6 / ( 2 + 1 )");
+        System.out.println(upnQueueIs);
+        String upnStringIs = queueToString(upnQueueIs);
+        assertEquals(stringShouldBe, upnStringIs);
+    }
+    
+
 
     @Test
     public void testCalculator() {

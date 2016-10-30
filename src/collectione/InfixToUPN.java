@@ -39,7 +39,7 @@ public class InfixToUPN {
         			}
         			if(!character.equals(")")) {
         				stack.push(character);
-        				System.out.println("In the queue: " + character);
+        				System.out.println("On the Stack: " + character);
         			}
         		}
         	}

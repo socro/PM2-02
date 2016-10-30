@@ -2,9 +2,6 @@ package collectione;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
 
@@ -12,12 +9,21 @@ public class DoubleLinkeListTest {
 
 	@Test
 	public void test() {
-		List<String> testList = new ArrayList<>();
-		testList.add("Test");
+		DoubleLinkedList dll = new DoubleLinkedList();
 		
-		testList.add(100,"Test2");
+		assertEquals(false, dll.remove("Banane"));
 		
-		Arrays.toString(testList.toArray());
+		String banane = "banane";
+		
+		dll.add("Banane");
+		dll.add("Banane");
+		dll.add("Banane");
+		dll.add(banane);
+		
+		System.out.println(dll.toString());
+		
+		assertEquals(true, dll.remove(banane));
+		System.out.println(dll.toString());
 	}
 
 }

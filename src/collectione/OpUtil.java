@@ -8,9 +8,6 @@ public class OpUtil {
 	private static ArrayList<String> list = new ArrayList<>(Arrays.asList("(","/","*","-","+",")"));
 
 	static boolean lowerPrecedence(String op1, String op2) {
-		if(op1.equals(null) || op2.equals(null)){
-			return false;
-		}
 		int firstElemPos = list.indexOf(op1);
 		int secondElemPos = list.indexOf(op2);
 		if(firstElemPos > secondElemPos) {

@@ -1,14 +1,21 @@
 package collectione;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DoubleLinkedList {
 
-	private DoubleNode head = null;
-	private DoubleNode tail = null;
+	private DoubleNode head;
+	private DoubleNode tail;
 
-	private List<DoubleNode> nodeStore = new ArrayList<>();
+	private List<DoubleNode> nodeStore;
+	
+	DoubleLinkedList(){
+		nodeStore = new ArrayList<>();
+		head = null;
+		tail = null;
+	}
 
 	public void add(Object content) {
 		DoubleNode nodeToStore = new DoubleNode(content);
@@ -70,13 +77,13 @@ public class DoubleLinkedList {
 						head = doubleNode.getSucc();
 						head.setPred(null);
 						
-						return nodeStore.remove(content);
+						return nodeStore.remove(doubleNode);
 					}
 					if (tail == doubleNode) {
 						tail = doubleNode.getPred();
 						tail.setSucc(null);
 						
-						return nodeStore.remove(content);
+						return nodeStore.remove(doubleNode);
 					}
 					DoubleNode pred = doubleNode.getPred();
 					DoubleNode succ = doubleNode.getSucc();
@@ -84,9 +91,7 @@ public class DoubleLinkedList {
 					pred.setSucc(succ);
 					succ.setPred(pred);
 
-					nodeStore.remove(doubleNode);
-
-					return true;
+					
 				}
 			}
 		}
@@ -103,7 +108,6 @@ public class DoubleLinkedList {
 
 	@Override
 	public String toString() {
-		String retVal = "";
-		return retVal;
+		return Arrays.toString(nodeStore.toArray());
 	}
 }
