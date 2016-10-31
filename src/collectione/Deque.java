@@ -1,5 +1,7 @@
 package collectione;
 
+import java.util.NoSuchElementException;
+
 public class Deque {
 	DoubleLinkedList queue;
 	
@@ -15,20 +17,28 @@ public class Deque {
 	}
 	
 	Object popLeft(){
+		if(size() == 0)
+			throw new NoSuchElementException();
 		Object returnVal = queue.get(0);
 		queue.remove(returnVal);
 		return returnVal;
 	}
 	Object popRight(){
+		if(size() == 0)
+			throw new NoSuchElementException();
 		Object returnVal = queue.get(queue.size() - 1);
 		queue.remove(returnVal);
 		return returnVal;
 	}
 	
 	Object peekLeft(){
+		if(size() == 0)
+			throw new NoSuchElementException();
 		return queue.get(0);
 	}
 	Object peekRight(){
+		if(size() == 0)
+			throw new NoSuchElementException();
 		return queue.get(queue.size() - 1);
 	}
 	
