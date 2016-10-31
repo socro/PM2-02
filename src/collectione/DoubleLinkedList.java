@@ -37,7 +37,13 @@ public class DoubleLinkedList {
 	}
 
 	public int indexOf(Object content) {
-		return nodeStore.indexOf(content);
+		for (DoubleNode doubleNode : nodeStore) {
+			if(doubleNode.getContent() == content)
+			{
+				return nodeStore.indexOf(doubleNode);
+			}
+		}
+		return -1;
 	}
 
 	public void insert(int index, Object content) {

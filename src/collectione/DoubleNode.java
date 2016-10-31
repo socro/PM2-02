@@ -1,7 +1,5 @@
 package collectione;
 
-import java.util.Arrays;
-
 public class DoubleNode {
 	
 	private Object content;
@@ -34,9 +32,9 @@ public class DoubleNode {
 		this.succ = node;
 	}
 	
-//	@Override
-//	public String toString() {
-//		return Arrays.toString(nodeStore.toArray());
-//	}
+	@Override
+	public String toString() {
+		return content.toString();
+	}
 	
 }
