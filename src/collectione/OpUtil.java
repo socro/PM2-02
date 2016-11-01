@@ -10,11 +10,8 @@ public class OpUtil {
 	static boolean lowerPrecedence(String op1, String op2) {
 		int firstElemPos = list.indexOf(op1);
 		int secondElemPos = list.indexOf(op2);
-		if(firstElemPos > secondElemPos) {
-			return true;
-		} else {
-			return false;
-		}
+		return firstElemPos > secondElemPos;
+
 	}
 	
 	static boolean higherPrecedence(String op1, String op2) {

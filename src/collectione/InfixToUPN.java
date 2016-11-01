@@ -16,13 +16,13 @@ public class InfixToUPN {
         Scanner sc = new Scanner(line);
         
         // Ziffern und Operatoren sollen durch Leerzeichen getrennt werden
-        Pattern elemPattern = Pattern.compile("\\s*[\\d\\+\\-\\*\\/\\(\\)]");
+        Pattern elemPattern = Pattern.compile("\\s*(:?\\d*||[\\+\\-\\*\\/\\(\\)])");
         System.out.println("We are trying to understand: " + line);
         while (sc.hasNext(elemPattern)) {
         	String character = sc.next(elemPattern).trim();
         	System.out.println("Currently working on: " + character);
         	
-        	if(character.matches("\\d")) {
+        	if(character.matches("\\d*")) {
         		queue.offer(character);
         		System.out.println("In the queue: " + character);
         	} else {
@@ -48,7 +48,7 @@ public class InfixToUPN {
 
         while(!stack.isEmpty()) {
         	String opFromStack = stack.pop();
-        	if(!opFromStack.equals(")")) {
+        	if(!opFromStack.equals("(")) {
         		queue.offer(opFromStack);
         	}
         }

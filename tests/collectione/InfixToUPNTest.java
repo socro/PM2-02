@@ -1,6 +1,7 @@
 package collectione;
 import static org.junit.Assert.*;
 
+import java.nio.charset.MalformedInputException;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -13,8 +14,8 @@ public class InfixToUPNTest {
 
     @Test
     public void testTransformerSimple() {
-    	String stringShouldBe = "3 4 3 * +";
-        Queue<String> upnQueueIs = InfixToUPN.process("3 + 4 * 3");
+    	String stringShouldBe = "10 4 3 * +";
+        Queue<String> upnQueueIs = InfixToUPN.process("10 + 4 * 3");
         System.out.println(upnQueueIs);
         String upnStringIs = queueToString(upnQueueIs);
         assertEquals(stringShouldBe, upnStringIs);
@@ -41,7 +42,7 @@ public class InfixToUPNTest {
 
 
     @Test
-    public void testCalculator() {
+    public void testCalculator() throws MalformedInputException {
     	Double resultShouldBe = 15.0;
         Double resultIs = UPNTaschenrechner.process("3 4 3 * +");
         assertEquals(resultShouldBe, resultIs, delta);

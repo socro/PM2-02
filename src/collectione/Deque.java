@@ -3,31 +3,31 @@ package collectione;
 import java.util.NoSuchElementException;
 
 public class Deque {
-	DoubleLinkedList queue;
+	private DoubleLinkedList queue;
 	
 	Deque(){
-		
+		queue = new DoubleLinkedList();
 	}
 	
 	void pushLeft(Object o){
 		queue.insert(0, o);
 	}
 	void pushRight(Object o){
-		queue.insert(queue.size() - 1, o);
+		queue.add(o);
 	}
 	
 	Object popLeft(){
 		if(size() == 0)
 			throw new NoSuchElementException();
 		Object returnVal = queue.get(0);
-		queue.remove(returnVal);
+		queue.removeFirst();
 		return returnVal;
 	}
 	Object popRight(){
 		if(size() == 0)
 			throw new NoSuchElementException();
 		Object returnVal = queue.get(queue.size() - 1);
-		queue.remove(returnVal);
+		queue.removeLast();
 		return returnVal;
 	}
 	
@@ -48,5 +48,10 @@ public class Deque {
 	
 	boolean isEmpty(){
 		return queue.isEmpty();
+	}
+	@Override
+	public String toString()
+	{
+		return queue.toString();
 	}
 }

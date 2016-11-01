@@ -1,18 +1,11 @@
 package collectione;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class DoubleLinkedList {
 
 	private DoubleNode head;
 	private DoubleNode tail;
 
-	private List<DoubleNode> nodeStore;
-	
-	DoubleLinkedList(){
-		nodeStore = new ArrayList<>();
+	DoubleLinkedList() {
 		head = null;
 		tail = null;
 	}
@@ -20,100 +13,174 @@ public class DoubleLinkedList {
 	public void add(Object content) {
 		DoubleNode nodeToStore = new DoubleNode(content);
 		if (isEmpty()) {
-			nodeStore.add(nodeToStore);
 			head = nodeToStore;
 			tail = nodeToStore;
 		} else {
 			tail.setSucc(nodeToStore);
 			nodeToStore.setPred(tail);
 			tail = nodeToStore;
-			nodeStore.add(nodeToStore);
 		}
 
 	}
 
 	public Object get(int index) {
-		return nodeStore.get(index);
+		if (index < 0 || isEmpty()) {
+			throw new IndexOutOfBoundsException();
+		}
+		DoubleNode currentNode = head;
+		while (index != 0) {
+			index--;
+			if (currentNode.getSucc() == null)
+				throw new IndexOutOfBoundsException();
+			currentNode = currentNode.getSucc();
+		}
+		return currentNode;
 	}
 
 	public int indexOf(Object content) {
-		for (DoubleNode doubleNode : nodeStore) {
-			if(doubleNode.getContent() == content)
-			{
-				return nodeStore.indexOf(doubleNode);
-			}
+		if (isEmpty())
+			return -1;
+		DoubleNode currentNode = head;
+		int indexCounter = 0;
+		while (!currentNode.getContent().equals(content)) {
+			if (currentNode.getSucc() == null)
+				return -1;
+			currentNode = currentNode.getSucc();
+			indexCounter++;
 		}
-		return -1;
+		return indexCounter;
 	}
 
 	public void insert(int index, Object content) {
-		if (index >= size()) {
-			add(content);
-		} else {
-			DoubleNode nodeToStore = new DoubleNode(content);
-			DoubleNode nodeAtIndex = nodeStore.get(index);
-
-			nodeToStore.setSucc(nodeAtIndex);
-			nodeToStore.setPred(nodeAtIndex.getPred());
+		if(index < 0)
+			throw new IndexOutOfBoundsException();
+		DoubleNode currentNode = head;
+		while (index > 1) {
+			index--;
+			if (currentNode.getSucc() == null)
+				throw new IndexOutOfBoundsException();
+			currentNode = currentNode.getSucc();
+		}
+		DoubleNode nodeToStore = new DoubleNode(content);
+		if(index == 0)
+		{
+			if(isEmpty())
+				tail = nodeToStore;
+			nodeToStore.setSucc(head);
+			if(head != null){
+				head.setPred(nodeToStore);
+			}
+			head = nodeToStore;
+		}
+		else if (currentNode.getSucc() != null) {
+			currentNode = currentNode.getSucc();
+			nodeToStore.setSucc(currentNode);
+			nodeToStore.setPred(currentNode.getPred());
 			nodeToStore.getPred().setSucc(nodeToStore);
-			nodeAtIndex.setPred(nodeToStore);
+			currentNode.setPred(nodeToStore);
+		} else {
+			tail = nodeToStore;
+			currentNode.setSucc(nodeToStore);
+			nodeToStore.setPred(currentNode);
 		}
 	}
-
+	
+	private void insertFirst()
+	{
+		
+	}
+	
 	public boolean isEmpty() {
-		return nodeStore.isEmpty();
+		return head == null;
 	}
 
 	public int size() {
-		return nodeStore.size();
+		if (isEmpty())
+			return 0;
+		DoubleNode currentNode = head;
+		int sizeCounter = 1;
+		while (currentNode.getSucc() != null) {
+			currentNode = currentNode.getSucc();
+			sizeCounter++;
+		}
+		return sizeCounter;
 	}
 
 	public boolean remove(Object content) {
-		if (nodeStore.size() == 0) {
+		if(isEmpty())
 			return false;
-		} else if (nodeStore.size() == 1) {
-			head = null;
-			tail = null;
-			nodeStore.clear();
+		if(head.getContent().equals(content))
+		{
+			removeFirst();
+			return true;			
+		} 
+		if(tail.getContent().equals(content))
+		{
+			removeLast();
 			return true;
-		} else {
-			for (DoubleNode doubleNode : nodeStore) {
-				if (doubleNode.getContent() == content) {
-					if (head == doubleNode) {
-						head = doubleNode.getSucc();
-						head.setPred(null);
-						
-						return nodeStore.remove(doubleNode);
-					}
-					if (tail == doubleNode) {
-						tail = doubleNode.getPred();
-						tail.setSucc(null);
-						
-						return nodeStore.remove(doubleNode);
-					}
-					DoubleNode pred = doubleNode.getPred();
-					DoubleNode succ = doubleNode.getSucc();
-
-					pred.setSucc(succ);
-					succ.setPred(pred);
-
-					
-				}
-			}
 		}
-		return false;
+		
+		DoubleNode currentNode = head;
+		while (!currentNode.getContent().equals(content)) {
+			if (currentNode.getSucc() == null)
+				return false;
+			currentNode = currentNode.getSucc();
+		}
+		DoubleNode pred = currentNode.getPred();
+		DoubleNode succ = currentNode.getSucc();
+		
+		pred.setSucc(succ);
+		succ.setPred(pred);
+		return true;
 	}
 
 	public void removeFirst() {
-		remove(head.getContent());
+		if(isEmpty())
+		{
+			return;
+		}
+		if(head == tail){
+			head = null;
+			tail = null;
+		}
+		else
+		{
+			DoubleNode oldHead = head;
+			head = oldHead.getSucc();
+			head.setPred(null);
+		}
 	}
 
 	public void removeLast() {
-		remove(tail.getContent());
+		if(isEmpty())
+		{
+			return;
+		}
+		if(head == tail){
+			head = null;
+			tail = null;
+		}
+		else
+		{
+			DoubleNode oldTail = tail;
+			tail = oldTail.getPred();
+			tail.setSucc(null);
+		}
 	}
 
 	@Override
 	public String toString() {
-		return Arrays.toString(nodeStore.toArray());
+		if (isEmpty())
+			return "[]";
+		String retVal = "[";
+		DoubleNode currentNode = head;
+		while (currentNode.getSucc() != null) {
+			retVal += currentNode;
+			retVal += ", ";
+			currentNode = currentNode.getSucc();
+		}
+		retVal += currentNode;
+		retVal += "]";
+		return retVal;
 	}
 }
